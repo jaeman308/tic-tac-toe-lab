@@ -3,7 +3,8 @@
 
 
 /*---------------------------- Variables (state) ----------------------------*/
-
+//define the trequired variables used to track the status of each 
+// part of the game. 
 
 let board = '';
 let turn = '';
@@ -11,15 +12,32 @@ let winner = '';
 let tie = '';
 
 /*------------------------ Cached Element References ------------------------*/
+
 const squareEls = document.querySelectorAll ('.sqr');
 const  messageEl = document.querySelector ('#message');
+const gameBoardEl = document.querySelector('.board')
 
-console.log(squareEls)
-console.log(messageEl)
+// console.log(squareEls)
+// console.log(messageEl)
+// console.log(gameBoardEl)
 /*-------------------------------- Functions --------------------------------*/
+//when the page is loaded i need to initialize it as a empty game board
 
 const init = () => {
-    console.log ()
+    console.log ('app loaded')
+    board = ['', '', '', '', '', '', '', '', '', '', ''];
+    turn = 'x'; 
+    winner= false;
+    tie = false;
+
+    
+};
+
+const render = () => {
+};
+
+const updateBoard = () => {
+    squareEls.forEach()
 };
 
 /*----------------------------- Event Listeners -----------------------------*/

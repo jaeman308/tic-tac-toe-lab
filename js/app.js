@@ -89,7 +89,15 @@ function updateMessage () {
 
     }
 }
+// need to creat a function that will loop over the sqrs and when provided a click place an X or an O
+function handleClick (event) {
+    console.log('square clicked:' , event.target)
 
+}
+    squareEls.forEach (function (square) {
+        square.addEventListener('click', handleClick)
+
+    });
 /*----------------------------- Event Listeners -----------------------------*/
 
 

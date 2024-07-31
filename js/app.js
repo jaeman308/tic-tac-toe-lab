@@ -29,17 +29,25 @@ const init = () => {
     turn = 'x'; 
     winner= false;
     tie = false;
-
-    
 };
+init()
+console.log({board,turn,winner,tie})
+
 
 const render = () => {
 };
 
+// access each square through an array and to get  letter in one of the sqrs
 const updateBoard = () => {
-    squareEls.forEach()
+    board.forEach((square, indx) => {
+        square = squareEls[indx];
+        console.dir(square)
+       
+
+    });
 };
 
+updateBoard()
 /*----------------------------- Event Listeners -----------------------------*/
 
 

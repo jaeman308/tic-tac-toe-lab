@@ -25,29 +25,61 @@ const gameBoardEl = document.querySelector('.board')
 
 const init = () => {
     console.log ('app loaded')
-    board = ['', '', '', '', '', '', '', '', '', '', ''];
-    turn = 'x'; 
+    board = ['', '', '', '', '', '', '', '', ''];
+    turn = 'X'; 
     winner= false;
     tie = false;
+    render();
 };
+
 init()
 console.log({board,turn,winner,tie})
 
 
-const render = () => {
+function render () {
+    updateBoard();
+    updateMessage();
 };
 
 // access each square through an array and to get  letter in one of the sqrs
-const updateBoard = () => {
+function updateBoard () {
     board.forEach((square, indx) => {
-        square = squareEls[indx];
-        console.dir(square)
-       
+          if (square === "X") {
+            squareEls[indx].textContent = 'X';
 
-    });
+        }else if (square === "O") {
+            squareEls[indx].textContent = 'O';
+        }else {
+            console.dir(squareEls[indx])
+            squareEls[indx].textContent = '';
+            console.dir(squareEls[indx])
+
+        }   
+    })
 };
 
-updateBoard()
+function updateMessage () {
+    if (winner === false && tie === false) {
+        if (turn === 'X') {
+            messageEl.textContent = "It's X's turn!"
+        }else {
+            messageEl.textContent = "It's O's turn!"
+        }
+        
+    }
+    if (tie === true && winner === false) {
+        messageEl.textContent = "Cats Game"
+    } 
+    if (winner == true && tie === false) {
+        if (turn === "X"){
+            messageEl.textContent = "Congrulations X is the winner!"
+        } else {
+            messageEl.textConent = "Congrulations O is the winner"
+        }
+
+    }
+}
+
 /*----------------------------- Event Listeners -----------------------------*/
 
 

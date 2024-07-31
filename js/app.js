@@ -1,6 +1,16 @@
 /*-------------------------------- Constants --------------------------------*/
+// need to define winning combos 
+const winningCombos = [
+    [0,1,2], // row 1
+    [3,4,5], // row 2
+    [6,7,8], //row 3
+    [0,3,6], // column 1
+    [1,4,7], //column 2
+    [2,5,8], //column 3
+    [0,4,8],// diagonal 1
+    [2,4,6] // diagonal 2
 
-
+]
 
 /*---------------------------- Variables (state) ----------------------------*/
 //define the trequired variables used to track the status of each 

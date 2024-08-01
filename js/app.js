@@ -26,16 +26,17 @@ let tie = '';
 const squareEls = document.querySelectorAll ('.sqr');
 const  messageEl = document.querySelector ('#message');
 const gameBoardEl = document.querySelector('.board')
-
+const squareIndex = document.querySelectorAll('.id')
 // console.log(squareEls)
 // console.log(messageEl)
 // console.log(gameBoardEl)
+// console.log(squareIndex)
 /*-------------------------------- Functions --------------------------------*/
 //when the page is loaded i need to initialize it as a empty game board
 
 const init = () => {
     console.log ('app loaded')
-    board = ['', '', '', '', '', '', '', '', ''];
+    board = ['', 'O', '', '', 'X', 'O', 'X', '', ''];
     turn = 'X'; 
     winner= false;
     tie = false;
@@ -91,16 +92,25 @@ function updateMessage () {
 }
 // need to creat a function that will loop over the sqrs and when provided a click place an X or an O
 function handleClick (event) {
-    console.log('square clicked:' , event.target)
+    console.log("squared clicked", event.target.id)
 
-}
-    squareEls.forEach (function (square) {
-        square.addEventListener('click', handleClick)
+    const currentSquareIndex = event.target.id
+    console.log('board element', board[currentSquareIndex])
 
-    });
-/*----------------------------- Event Listeners -----------------------------*/
+//is the square full?  
+    if((board[currentSquareIndex] === 'X' || board[currentSquareIndex] === 'O') ||  winner) {
+        return 
+    }
 
+    console.log("more work to come in the handle click")
+    
+    }
 
+squareEls.forEach ((square, event) => {
+    square.addEventListener('click', handleClick)
+});
+
+/*----------------------------- Event Listeners   -----------------------------*/
 
 //1) Define the required variables used to track the state of the game.
 

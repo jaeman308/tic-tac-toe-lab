@@ -10,27 +10,24 @@ const winningCombos = [
     [0,4,8],// diagonal 1
     [2,4,6] // diagonal 2
 
-]
+];
 
 /*---------------------------- Variables (state) ----------------------------*/
 //define the trequired variables used to track the status of each 
 // part of the game. 
 
-let board = '';
+let board = [];
 let turn = '';
-let winner = '';
-let tie = '';
+let winner = false;
+let tie = false;
 
 /*------------------------ Cached Element References ------------------------*/
 
-const squareEls = document.querySelectorAll ('.sqr');
-const  messageEl = document.querySelector ('#message');
-const gameBoardEl = document.querySelector('.board')
-const squareIndex = document.querySelectorAll('.id')
+const squareEls = document.querySelectorAll('.sqr');
+const  messageEl = document.querySelector('#message');
+
 // console.log(squareEls)
 // console.log(messageEl)
-// console.log(gameBoardEl)
-// console.log(squareIndex)
 /*-------------------------------- Functions --------------------------------*/
 //when the page is loaded i need to initialize it as a empty game board
 
@@ -46,98 +43,76 @@ const init = () => {
 init()
 // console.log({board,turn,winner,tie})
 
-
-function render () {
+function render() {
     updateBoard();
     updateMessage();
-};
+}
 
 // access each square through an array and to get  letter in one of the sqrs
-function updateBoard () {
+function updateBoard() {
     board.forEach((square, indx) => {
           if (square === "X") {
             squareEls[indx].textContent = 'X';
 
         }else if (square === "O") {
             squareEls[indx].textContent = 'O';
+
         }else {
-            // console.dir(squareEls[indx])
             squareEls[indx].textContent = '';
-            // console.dir(squareEls[indx])
 
         }   
     })
 };
 
-function updateMessage () {
-    if (winner === false && tie === false) {
-        if (turn === 'X') {
-            messageEl.textContent = "It's X's turn!"
-        }else {
-            messageEl.textContent = "It's O's turn!"
-        }
-        
-    }
-    if (tie === true && winner === false) {
-        messageEl.textContent = "Cats Game"
-    } 
-    if (winner == true && tie === false) {
-        if (turn === "X"){
-            messageEl.textContent = "Congrulations X is the winner!"
-        } else {
-            messageEl.textConent = "Congrulations O is the winner"
-        }
-
+function updateMessage() {
+    if (winner) {
+        messageEl.textContent = `Congratulations ${turn} is the winner!`;
+    } else if (tie) {
+        messageEl.textContent = "Cat's Game!";
+    } else {
+        messageEl.textContent = `It's ${turn}'s turn!`;
     }
 }
 // need to creat a function that will loop over the sqrs and when provided a click place an X or an O
-function handleClick (event) {
-    // console.log("squared clicked", event.target.id)
-
-    const currentSquareIndex = event.target.id
-    // console.log('board element', board[currentSquareIndex])
-
+function handleClick(event) {
+    const currentSquareIndex = event.target.id;
 //is the square full?  
-    if((board[currentSquareIndex] === 'X' || board[currentSquareIndex] === 'O') ||  winner) {
-        return 
+    if(board[currentSquareIndex] === '' &&  !winner && !tie) {
+        placePiece (currentSquareIndex);
+        checkForWinner();
+        checkForTie();
+        switchPlayerTurn();
+        render();
     }
-    placePiece (currentSquareIndex)
-    checkForWinner(board, winningCombos)
-    checkForTie()
-    switchPlayerTurn()
+ }
 
-    console.log("more work to come in the handle click", {board})
-
-    }
-
-squareEls.forEach ((square, event) => {
+squareEls.forEach(square => {
     square.addEventListener('click', handleClick)
 });
 
-function placePiece (index) {
+function placePiece(index) {
     if (index >= 0 && index < board.length) {
         board[index] = turn;
        }
-    //    console.log(board)
-    } 
+ } 
 
     
-function checkForWinner (board, winningCombos) { 
+function checkForWinner() { 
     for (let i = 0; i < winningCombos.length; i++) {
-    const [a,b,c] = winningCombos[i];
-    const valueA = board[a];
-    const valueB = board[b];
-    const valueC= board[c];
+        const [a, b, c] = winningCombos[i];
+        const valueA = board[a];
+        const valueB = board[b];
+        const valueC= board[c];
     if (valueA !== '' && valueA === valueB && valueA === valueC){
         winner= true;
         break;
     }
 }
    return winner;
-};
+}
 
 function checkForTie () {
-    if (checkForWinner(board, winningCombos)){
+    if (checkForWinner()){
         return;
     }
     const emptySpaces = board.includes('');
@@ -146,16 +121,13 @@ function checkForTie () {
 } 
 
 function switchPlayerTurn() {
-    if (checkForWinner(board, winningCombos)) {
+    if (checkForWinner()) {
         return;
     }
-    turn = (turn == 'x') ? 'O' : 'X';
+    turn = (turn === 'X') ? 'O' : 'X';
 }
 
-function render(){
-    updateBoard();
-    updateMessage();
-}
+
 /*------------------------ ----- Event Listeners   -----------------------------*/
 
 //1) Define the required variables used to track the state of the game.

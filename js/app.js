@@ -36,7 +36,7 @@ const squareIndex = document.querySelectorAll('.id')
 
 const init = () => {
     console.log ('app loaded')
-    board = ['', 'O', '', '', 'X', 'O', 'X', '', ''];
+    board = ['', '', '', '', '', '', '', '', ''];
     turn = 'X'; 
     winner= false;
     tie = false;
@@ -103,6 +103,8 @@ function handleClick (event) {
     }
     placePiece (currentSquareIndex)
     checkForWinner(board, winningCombos)
+    checkForTie()
+    switchPlayerTurn()
 
     console.log("more work to come in the handle click", {board})
 
@@ -134,8 +136,27 @@ function checkForWinner (board, winningCombos) {
    return winner;
 };
 
+function checkForTie () {
+    if (checkForWinner(board, winningCombos)){
+        return;
+    }
+    const emptySpaces = board.includes('');
+    tie = !emptySpaces;
+   
+} 
 
-/*----------------------------- Event Listeners   -----------------------------*/
+function switchPlayerTurn() {
+    if (checkForWinner(board, winningCombos)) {
+        return;
+    }
+    turn = (turn == 'x') ? 'O' : 'X';
+}
+
+function render(){
+    updateBoard();
+    updateMessage();
+}
+/*------------------------ ----- Event Listeners   -----------------------------*/
 
 //1) Define the required variables used to track the state of the game.
 

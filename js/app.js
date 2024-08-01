@@ -44,7 +44,7 @@ const init = () => {
 };
 
 init()
-console.log({board,turn,winner,tie})
+// console.log({board,turn,winner,tie})
 
 
 function render () {
@@ -61,9 +61,9 @@ function updateBoard () {
         }else if (square === "O") {
             squareEls[indx].textContent = 'O';
         }else {
-            console.dir(squareEls[indx])
+            // console.dir(squareEls[indx])
             squareEls[indx].textContent = '';
-            console.dir(squareEls[indx])
+            // console.dir(squareEls[indx])
 
         }   
     })
@@ -92,23 +92,48 @@ function updateMessage () {
 }
 // need to creat a function that will loop over the sqrs and when provided a click place an X or an O
 function handleClick (event) {
-    console.log("squared clicked", event.target.id)
+    // console.log("squared clicked", event.target.id)
 
     const currentSquareIndex = event.target.id
-    console.log('board element', board[currentSquareIndex])
+    // console.log('board element', board[currentSquareIndex])
 
 //is the square full?  
     if((board[currentSquareIndex] === 'X' || board[currentSquareIndex] === 'O') ||  winner) {
         return 
     }
+    placePiece (currentSquareIndex)
+    checkForWinner(board, winningCombos)
 
-    console.log("more work to come in the handle click")
-    
+    console.log("more work to come in the handle click", {board})
+
     }
 
 squareEls.forEach ((square, event) => {
     square.addEventListener('click', handleClick)
 });
+
+function placePiece (index) {
+    if (index >= 0 && index < board.length) {
+        board[index] = turn;
+       }
+    //    console.log(board)
+    } 
+
+    
+function checkForWinner (board, winningCombos) { 
+    for (let i = 0; i < winningCombos.length; i++) {
+    const [a,b,c] = winningCombos[i];
+    const valueA = board[a];
+    const valueB = board[b];
+    const valueC= board[c];
+    if (valueA !== '' && valueA === valueB && valueA === valueC){
+        winner= true;
+        break;
+    }
+}
+   return winner;
+};
+
 
 /*----------------------------- Event Listeners   -----------------------------*/
 

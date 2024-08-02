@@ -25,10 +25,12 @@ let tie = false;
 
 const squareEls = document.querySelectorAll('.sqr');
 const  messageEl = document.querySelector('#message');
+const  resetBtnEl = document.querySelector('#reset');
 
 // console.log(squareEls)
 // console.log(messageEl)
-/*-------------------------------- Functions --------------------------------*/
+// console.dir(resetBtnEl)
+/*------------------------------- Functions --------------------------------*/
 //when the page is loaded i need to initialize it as a empty game board
 
 const init = () => {
@@ -128,7 +130,9 @@ function switchPlayerTurn() {
 }
 
 
+
 /*------------------------ ----- Event Listeners   -----------------------------*/
+resetBtnEl.addEventListener('click', init);
 
 //1) Define the required variables used to track the state of the game.
 

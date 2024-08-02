@@ -19,3 +19,13 @@ body {
     text-align: center;
   }
   
+  #reset {
+    padding: 10px;
+    margin: auto;
+    background-color: green;
+    color: white;
+  }
+  .resetBtn {
+    margin: auto;
+    padding: 30px;
+  }
